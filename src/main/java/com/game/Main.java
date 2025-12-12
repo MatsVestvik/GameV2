@@ -2,7 +2,6 @@ package com.game;
 
 import javax.swing.text.View;
 
-import com.game.createView.FightScene;
 import com.game.createView.FightView;
 import com.game.createView.ViewCharacter;
 import com.game.logic.Character;
@@ -38,7 +37,7 @@ public class Main extends Application{
         Image villainAvatar = MakeImage.createImage("img/ninja/Ninja_Character.gif");
         Character villain = new Character("Villain", 100, 50, villainAvatar);
 
-        ViewCharacter yourPlayerView = new ViewCharacter(true, avatar);
+        ViewCharacter yourPlayerView = new ViewCharacter(true, avatar, hero);
         yourPlayerView.addItemImageToPane(sword.getIcon(), sword.getRarity());
         yourPlayerView.addItemImageToPane(shield.getIcon(), shield.getRarity());
 
@@ -48,7 +47,7 @@ public class Main extends Application{
         start.setOpacity(0);
         yourPlayerView.getCharPane().getChildren().add(start);
 
-        ViewCharacter enemyView = new ViewCharacter(false, villainAvatar);
+        ViewCharacter enemyView = new ViewCharacter(false, villainAvatar, villain);
         enemyView.addItemImageToPane(sword.getIcon(), sword.getRarity());
         enemyView.addItemImageToPane(shield.getIcon(), shield.getRarity());
 
@@ -58,8 +57,7 @@ public class Main extends Application{
 
         start.setOnAction(e -> {
             FightView fightView = new FightView();
-            fightView.attackAnimation(yourPlayerView);
-            fightView.hurtAnimation(enemyView);
+            fightView.startFight(yourPlayerView, enemyView);
         });
 
         stage.setScene(new javafx.scene.Scene(fightHBox, 400, 400));

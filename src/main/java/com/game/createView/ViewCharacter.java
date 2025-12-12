@@ -1,12 +1,14 @@
 package com.game.createView;
 
 import com.game.logic.MakeImage;
+import com.game.logic.Character;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -19,11 +21,13 @@ public class ViewCharacter {
     private Group backGroundGroup;
     boolean isPlayer;
     private ImageView unitBackgroundView;
+    private Character character;
 
 
-    public ViewCharacter(boolean isPlayer, Image avatar) {
+    public ViewCharacter(boolean isPlayer, Image avatar, Character character) {
         charPane = new StackPane();
         this.isPlayer = isPlayer;  
+        this.character = character;
         if (!isPlayer) {
             flipCharacterView();
         }
@@ -46,9 +50,10 @@ public class ViewCharacter {
         charPane.getChildren().addAll(backGroundGroup, characterGroup);
     }
 
-    public StackPane getCharPane() {
-        return charPane;
-    }
+    public StackPane getCharPane() {return charPane;}
+    public Group getCharacterGroup() {return characterGroup;}
+    public Group getBackGroundGroup() {return backGroundGroup;}
+    public Character getCharacter() {return character;}
 
     public void addImageToPane(Image img) {
         ImageView imageView = new ImageView(img);
@@ -96,11 +101,18 @@ public class ViewCharacter {
 
     public void attackAnimation() {
         Timeline timeline = new Timeline();
+        boolean isPlayer = this.isPlayer;
+        int direction;
+        if (isPlayer) {
+            direction = 1;
+        } else {
+            direction = -1;
+        }
         
         // KeyFrame 1: Move to attack position
         KeyValue kv1 = new KeyValue(characterGroup.translateXProperty(), 
-                                    isPlayer ? 20 : -20);
-        KeyFrame kf1 = new KeyFrame(Duration.millis(50), kv1);
+                                    isPlayer ? 70*direction : -70*direction);
+        KeyFrame kf1 = new KeyFrame(Duration.millis(150), kv1);
         
         // KeyFrame 2: Return to original position
         KeyValue kv2 = new KeyValue(characterGroup.translateXProperty(), 0);
@@ -111,17 +123,27 @@ public class ViewCharacter {
     }
 
     public void hurtAnimation() {
-        Timeline timeline = new Timeline();
-        characterGroup.color
+        // Create a ColorAdjust effect for red tint
+        ColorAdjust redTint = new ColorAdjust();
+        redTint.setHue(0.0);      // Red hue
+        redTint.setSaturation(1.0); // Increase saturation
+        redTint.setBrightness(0.2); // Slightly brighten
         
-        // KeyFrame 1: Move to hurt position
-        KeyValue kv1 = new KeyValue(characterGroup.translateYProperty(), 
-                                    isPlayer ? -10 : 10);
+        Timeline timeline = new Timeline();
+        
+        // Apply red tint immediately
+        characterGroup.setEffect(redTint);
+        
+        // KeyFrame 1: Move up/down with full red tint
+        KeyValue kv1 = new KeyValue(characterGroup.translateXProperty(), isPlayer ? -10 : 10);
+
         KeyFrame kf1 = new KeyFrame(Duration.millis(50), kv1);
         
-        // KeyFrame 2: Return to original position
-        KeyValue kv2 = new KeyValue(characterGroup.translateYProperty(), 0);
-        KeyFrame kf2 = new KeyFrame(Duration.millis(200), kv2);
+        // KeyFrame 2: Return to position, fade out red tint
+        KeyValue kv2y = new KeyValue(characterGroup.translateXProperty(), 0);
+        KeyValue kv2Brightness = new KeyValue(redTint.brightnessProperty(), 0.0);
+        KeyValue kv2Saturation = new KeyValue(redTint.saturationProperty(), 0.0);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(200), event -> characterGroup.setEffect(null), kv2y, kv2Brightness, kv2Saturation);
         
         timeline.getKeyFrames().addAll(kf1, kf2);
         timeline.play();
