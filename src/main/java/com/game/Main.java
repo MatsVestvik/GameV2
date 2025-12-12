@@ -1,12 +1,17 @@
 package com.game;
 
+import com.game.createView.ViewCharacter;
 import com.game.logic.Character;
 import com.game.logic.Fight;
 import com.game.logic.Item;
 import com.game.logic.MakeImage;
 
 import javafx.application.Application;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 public class Main extends Application{
 
@@ -27,12 +32,27 @@ public class Main extends Application{
         Image villainAvatar = MakeImage.createImage("img/ninja/Ninja_Character.gif");
         Character villain = new Character("Villain", 100, 50, villainAvatar);
 
-        Group 
+        ViewCharacter yourPlayerView = new ViewCharacter(true);
+        yourPlayerView.addImageToPane(hero.getAvatar());
+        yourPlayerView.addImageToPane(sword.getIcon());
+        yourPlayerView.addImageToPane(shield.getIcon());
 
-        Fight fight = new Fight();
-        fight.fight(hero, villain);
+        Button start = new Button("Start Fight");
+        yourPlayerView.getCharPane().getChildren().add(start);
 
+        ViewCharacter enemyView = new ViewCharacter(false);
+        enemyView.addImageToPane(villain.getAvatar());
 
+        HBox fightHBox = new HBox();
+
+        fightHBox.getChildren().addAll(yourPlayerView.getCharPane(), enemyView.getCharPane());
+
+        start.setOnAction(e -> {
+            Fight fight = new Fight();
+            fight.fight(hero, villain);
+        });
+
+        stage.setScene(new javafx.scene.Scene(fightHBox, 400, 400));
         stage.setTitle("Game Fight Simulation");
         stage.show();
     }
