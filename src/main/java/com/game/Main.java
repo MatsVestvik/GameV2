@@ -25,6 +25,7 @@ public class Main extends Application{
         Item sword = new Item("Sword", 0, 10, "WEAPON", swordIcon);
         Image shieldIcon = MakeImage.createImage("img/basic/weapon/Basic_Shield.gif");
         Item shield = new Item("Shield", 20, 0, "OFFHAND", shieldIcon);
+        Image unitBackground = MakeImage.createImage("img/elements/UnitBackground.gif");
 
         hero.equipItem(sword);
         hero.equipItem(shield);
@@ -33,15 +34,22 @@ public class Main extends Application{
         Character villain = new Character("Villain", 100, 50, villainAvatar);
 
         ViewCharacter yourPlayerView = new ViewCharacter(true);
+        yourPlayerView.addImageToPane(unitBackground);
         yourPlayerView.addImageToPane(hero.getAvatar());
         yourPlayerView.addImageToPane(sword.getIcon());
         yourPlayerView.addImageToPane(shield.getIcon());
 
         Button start = new Button("Start Fight");
+        start.setMinHeight(200);
+        start.setMinWidth(200);
+        start.setOpacity(0);
         yourPlayerView.getCharPane().getChildren().add(start);
 
         ViewCharacter enemyView = new ViewCharacter(false);
+        enemyView.addImageToPane(unitBackground);
         enemyView.addImageToPane(villain.getAvatar());
+        enemyView.addImageToPane(sword.getIcon());
+        enemyView.addImageToPane(shield.getIcon());
 
         HBox fightHBox = new HBox();
 
