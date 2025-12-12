@@ -75,4 +75,8 @@ public class Character {
                 break;
         }
     }
+
+    public boolean isAlive() {
+        return this.health > 0;
+    }
 }

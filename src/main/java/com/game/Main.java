@@ -22,9 +22,9 @@ public class Main extends Application{
         Character hero = new Character("Hero", 100, 15, avatar);
 
         Image swordIcon = MakeImage.createImage("img/basic/weapon/Basic_Sword.gif");
-        Item sword = new Item("Sword", 0, 10, "WEAPON", swordIcon);
+        Item sword = new Item("Sword", 0, 10, "WEAPON", swordIcon, 4);
         Image shieldIcon = MakeImage.createImage("img/basic/weapon/Basic_Shield.gif");
-        Item shield = new Item("Shield", 20, 0, "OFFHAND", shieldIcon);
+        Item shield = new Item("Shield", 20, 0, "OFFHAND", shieldIcon, 3);
         Image unitBackground = MakeImage.createImage("img/elements/UnitBackground.gif");
 
         hero.equipItem(sword);
@@ -36,8 +36,8 @@ public class Main extends Application{
         ViewCharacter yourPlayerView = new ViewCharacter(true);
         yourPlayerView.addImageToPane(unitBackground);
         yourPlayerView.addImageToPane(hero.getAvatar());
-        yourPlayerView.addImageToPane(sword.getIcon());
-        yourPlayerView.addImageToPane(shield.getIcon());
+        yourPlayerView.addItemImageToPane(sword.getIcon(), sword.getRarity());
+        yourPlayerView.addItemImageToPane(shield.getIcon(), shield.getRarity());
 
         Button start = new Button("Start Fight");
         start.setMinHeight(200);
@@ -58,6 +58,11 @@ public class Main extends Application{
         start.setOnAction(e -> {
             Fight fight = new Fight();
             fight.fight(hero, villain);
+            if (hero.isAlive()) {
+                enemyView.killCharacterView();
+            } else {
+                yourPlayerView.killCharacterView();
+            }
         });
 
         stage.setScene(new javafx.scene.Scene(fightHBox, 400, 400));
