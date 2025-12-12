@@ -1,10 +1,15 @@
 package com.game;
 
+import javax.swing.text.View;
+
+import com.game.createView.FightScene;
+import com.game.createView.FightView;
 import com.game.createView.ViewCharacter;
 import com.game.logic.Character;
 import com.game.logic.Fight;
 import com.game.logic.Item;
 import com.game.logic.MakeImage;
+import com.game.createView.FightView;
 
 import javafx.application.Application;
 import javafx.scene.control.Button;
@@ -33,9 +38,7 @@ public class Main extends Application{
         Image villainAvatar = MakeImage.createImage("img/ninja/Ninja_Character.gif");
         Character villain = new Character("Villain", 100, 50, villainAvatar);
 
-        ViewCharacter yourPlayerView = new ViewCharacter(true);
-        yourPlayerView.addImageToPane(unitBackground);
-        yourPlayerView.addImageToPane(hero.getAvatar());
+        ViewCharacter yourPlayerView = new ViewCharacter(true, avatar);
         yourPlayerView.addItemImageToPane(sword.getIcon(), sword.getRarity());
         yourPlayerView.addItemImageToPane(shield.getIcon(), shield.getRarity());
 
@@ -45,24 +48,18 @@ public class Main extends Application{
         start.setOpacity(0);
         yourPlayerView.getCharPane().getChildren().add(start);
 
-        ViewCharacter enemyView = new ViewCharacter(false);
-        enemyView.addImageToPane(unitBackground);
-        enemyView.addImageToPane(villain.getAvatar());
-        enemyView.addImageToPane(sword.getIcon());
-        enemyView.addImageToPane(shield.getIcon());
+        ViewCharacter enemyView = new ViewCharacter(false, villainAvatar);
+        enemyView.addItemImageToPane(sword.getIcon(), sword.getRarity());
+        enemyView.addItemImageToPane(shield.getIcon(), shield.getRarity());
 
         HBox fightHBox = new HBox();
 
         fightHBox.getChildren().addAll(yourPlayerView.getCharPane(), enemyView.getCharPane());
 
         start.setOnAction(e -> {
-            Fight fight = new Fight();
-            fight.fight(hero, villain);
-            if (hero.isAlive()) {
-                enemyView.killCharacterView();
-            } else {
-                yourPlayerView.killCharacterView();
-            }
+            FightView fightView = new FightView();
+            fightView.attackAnimation(yourPlayerView);
+            fightView.hurtAnimation(enemyView);
         });
 
         stage.setScene(new javafx.scene.Scene(fightHBox, 400, 400));

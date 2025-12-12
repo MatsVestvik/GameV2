@@ -2,20 +2,48 @@ package com.game.createView;
 
 import com.game.logic.MakeImage;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration; 
 
 public class ViewCharacter {
 
     StackPane charPane;
+    private Group characterGroup;
+    private Group backGroundGroup;
     boolean isPlayer;
+    private ImageView unitBackgroundView;
 
-    public ViewCharacter(boolean isPlayer) {
-        charPane = new StackPane();  
+
+    public ViewCharacter(boolean isPlayer, Image avatar) {
+        charPane = new StackPane();
+        this.isPlayer = isPlayer;  
         if (!isPlayer) {
             flipCharacterView();
         }
+        Image unitBackground = MakeImage.createImage("img/elements/UnitBackground.gif");
+        ImageView unitBackgroundView = new ImageView(unitBackground);
+        unitBackgroundView.setFitWidth(200);
+        unitBackgroundView.setPreserveRatio(true);
+        this.unitBackgroundView = unitBackgroundView;
+        backGroundGroup = new Group();
+        
+
+        backGroundGroup.getChildren().add(unitBackgroundView);
+        characterGroup = new Group();
+
+        ImageView avatarView = new ImageView(avatar);
+        avatarView.setFitWidth(200);
+        avatarView.setPreserveRatio(true);
+        characterGroup.getChildren().add(avatarView);
+
+        charPane.getChildren().addAll(backGroundGroup, characterGroup);
     }
 
     public StackPane getCharPane() {
@@ -26,7 +54,7 @@ public class ViewCharacter {
         ImageView imageView = new ImageView(img);
         imageView.setFitWidth(200);
         imageView.setPreserveRatio(true);
-        charPane.getChildren().add(imageView);
+        characterGroup.getChildren().add(imageView);
     }
 
     public void addImageViewToPane(ImageView imgView) {
@@ -38,7 +66,7 @@ public class ViewCharacter {
         imageView.setFitWidth(200);
         imageView.setPreserveRatio(true);
         ImageView raredImg = RarityFilter.applyRarityTint(imageView, rarity);
-        charPane.getChildren().add(raredImg);
+        characterGroup.getChildren().add(raredImg);
     }
 
     public void flipCharacterView() {
@@ -57,15 +85,45 @@ public class ViewCharacter {
         }
     }
 
-    public void clearPane() {
-        charPane.getChildren().clear();
+    public void killCharacterView() {
+        characterGroup.getChildren().clear();
+        Image deadImage = MakeImage.createImage("img/elements/Death.png");
+        ImageView deadImageView = new ImageView(deadImage);
+        deadImageView.setFitWidth(200); 
+        deadImageView.setPreserveRatio(true);
+        characterGroup.getChildren().add(deadImageView);
     }
 
-    public void killCharacterView() {
-        clearPane();
-        Image unitBackground = MakeImage.createImage("img/elements/UnitBackground.gif");
-        Image deathIcon = MakeImage.createImage("img/elements/Death.png");
-        addImageToPane(unitBackground);
-        addImageToPane(deathIcon);
+    public void attackAnimation() {
+        Timeline timeline = new Timeline();
+        
+        // KeyFrame 1: Move to attack position
+        KeyValue kv1 = new KeyValue(characterGroup.translateXProperty(), 
+                                    isPlayer ? 20 : -20);
+        KeyFrame kf1 = new KeyFrame(Duration.millis(50), kv1);
+        
+        // KeyFrame 2: Return to original position
+        KeyValue kv2 = new KeyValue(characterGroup.translateXProperty(), 0);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(200), kv2);
+        
+        timeline.getKeyFrames().addAll(kf1, kf2);
+        timeline.play();
+    }
+
+    public void hurtAnimation() {
+        Timeline timeline = new Timeline();
+        characterGroup.color
+        
+        // KeyFrame 1: Move to hurt position
+        KeyValue kv1 = new KeyValue(characterGroup.translateYProperty(), 
+                                    isPlayer ? -10 : 10);
+        KeyFrame kf1 = new KeyFrame(Duration.millis(50), kv1);
+        
+        // KeyFrame 2: Return to original position
+        KeyValue kv2 = new KeyValue(characterGroup.translateYProperty(), 0);
+        KeyFrame kf2 = new KeyFrame(Duration.millis(200), kv2);
+        
+        timeline.getKeyFrames().addAll(kf1, kf2);
+        timeline.play();
     }
 }
