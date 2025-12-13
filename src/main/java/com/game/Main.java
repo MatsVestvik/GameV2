@@ -24,17 +24,26 @@ public class Main extends Application{
     @Override
     public void start(javafx.stage.Stage stage) {
 
-        Image avatar = MakeImage.createImage("img/basic/character/Basic_Character.gif");
-        Character hero = new Character("Hero", 100, 15, avatar);
-
-        ViewCharacter yourPlayerView = new ViewCharacter(true, avatar, hero);
-
+        CreateHero heroCreator = new CreateHero();
+        ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter();
+        
         CreateEnemies enemyCreator = new CreateEnemies();
 
         FightView fightView = new FightView(yourPlayerView, enemyCreator.getEnemyView(0), enemyCreator.getEnemyView(1), enemyCreator.getEnemyView(2));
         StackPane fightPane = fightView.getFightPane();
 
+        enemyCreator.getEnemyView(0).getInvisibleButton().setOnAction(e -> {
+            System.out.println("Enemy 1 clicked");
+            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(0));
+        });
 
+        enemyCreator.getEnemyView(1).getInvisibleButton().setOnAction(e -> {
+            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(1));
+        });
+
+        enemyCreator.getEnemyView(2).getInvisibleButton().setOnAction(e -> {
+            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(2));
+        });
 
         stage.setScene(new javafx.scene.Scene(fightPane, 400, 400));
         stage.setTitle("Game Fight Simulation");
