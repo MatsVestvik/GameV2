@@ -9,6 +9,7 @@ import com.game.createView.ViewCharacter;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FightScreen {
@@ -42,9 +43,14 @@ public class FightScreen {
             fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(2));
         });
 
-        
+        StatsView statsView = new StatsView(
+            yourPlayerView.getCharacter(),
+            enemyCreator.getEnemyView(0).getCharacter(),
+            enemyCreator.getEnemyView(1).getCharacter(),
+            enemyCreator.getEnemyView(2).getCharacter()
+        );
 
-        allElementsVBox.getChildren().addAll(fightPane);
+        allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox());
 
         Scene fightScene = new Scene(allElementsVBox);
         return fightScene;

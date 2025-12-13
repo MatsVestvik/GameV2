@@ -14,6 +14,7 @@ public class StatsView {
     private double width = javafx.stage.Screen.getPrimary().getBounds().getWidth() / 4;
 
     public StatsView(Character mainCharacter, Character enemy1, Character enemy2, Character enemy3) {
+        statsVBoxes = new java.util.ArrayList<>();
         statsHBox = new HBox();
         statsVBoxes.add(createStatsVBox(mainCharacter));
         statsVBoxes.add(createStatsVBox(enemy1));
