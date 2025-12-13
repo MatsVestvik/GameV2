@@ -28,7 +28,7 @@ public class FightView {
 
     public FightView(ViewCharacter player, ViewCharacter npc) {
         CharactersView charactersView = new CharactersView(player, npc);
-        BackgroundView backgroundView = new BackgroundView(2);
+        BackgroundView backgroundView = new BackgroundView(4);
 
         fightPane = new StackPane();
         //fightPane.setAlignment(Pos.CENTER);
