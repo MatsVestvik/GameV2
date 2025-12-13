@@ -2,12 +2,19 @@ package com.game.createView;
 
 import java.security.Key;
 import java.sql.Time;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.swing.text.View;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import com.game.createView.ViewCharacter;
@@ -15,9 +22,25 @@ import com.game.logic.Character;
 
 public class FightView {
 
-    public FightView() {
+    private StackPane fightPane;
+    private HBox fightHBox;
+
+
+    public FightView(ViewCharacter player, ViewCharacter npc) {
+        CharactersView charactersView = new CharactersView(player, npc);
+        BackgroundView backgroundView = new BackgroundView(2);
+
+        fightPane = new StackPane();
+        //fightPane.setAlignment(Pos.CENTER);
+
         
+
+        fightPane.getChildren().addAll(backgroundView.getBackgroundHBox(), fightHBox = charactersView.getCharactersHBox());
     }
+
+    public HBox getFightHBox() {return fightHBox;}
+    public StackPane getFightPane() {return fightPane;}
+
     public void attackAnimation(ViewCharacter attacker) {
         attacker.attackAnimation();
     }
@@ -31,10 +54,10 @@ public class FightView {
         int damageDealt = attacker.getCharacter().getTotalDamage() - defender.getCharacter().getTotalArmor();
         defender.getCharacter().setHealth(defender.getCharacter().getHealth() - damageDealt);
 
-        KeyFrame duration = new KeyFrame(Duration.millis(50), e -> {
+        KeyFrame duration = new KeyFrame(Duration.millis(150), e -> {
             attacker.attackAnimation();
         });
-        KeyFrame duration2 = new KeyFrame(Duration.millis(100), e -> {
+        KeyFrame duration2 = new KeyFrame(Duration.millis(150), e -> {
             defender.hurtAnimation();
         });
         timeline.getKeyFrames().addAll(duration, duration2);

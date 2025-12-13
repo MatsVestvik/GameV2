@@ -1,5 +1,7 @@
 package com.game;
 
+import java.util.Stack;
+
 import javax.swing.text.View;
 
 import com.game.createView.FightView;
@@ -51,16 +53,14 @@ public class Main extends Application{
         enemyView.addItemImageToPane(sword.getIcon(), sword.getRarity());
         enemyView.addItemImageToPane(shield.getIcon(), shield.getRarity());
 
-        HBox fightHBox = new HBox();
-
-        fightHBox.getChildren().addAll(yourPlayerView.getCharPane(), enemyView.getCharPane());
+        FightView fightView = new FightView(yourPlayerView, enemyView);
+        StackPane fightPane = fightView.getFightPane();
 
         start.setOnAction(e -> {
-            FightView fightView = new FightView();
             fightView.startFight(yourPlayerView, enemyView);
         });
 
-        stage.setScene(new javafx.scene.Scene(fightHBox, 400, 400));
+        stage.setScene(new javafx.scene.Scene(fightPane, 400, 400));
         stage.setTitle("Game Fight Simulation");
         stage.show();
     }
