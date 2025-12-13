@@ -1,10 +1,13 @@
 package com.game.scenes;
 
+import java.util.Stack;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class StartScreen{
 
@@ -15,7 +18,7 @@ public class StartScreen{
     public StartScreen(Stage stage){
         this.stage = stage;
         this.width = stage.getWidth();
-        startScene = new Scene(new javafx.scene.layout.StackPane(), width, stage.getHeight());
+        startScene = new Scene(new StackPane(), width, stage.getHeight());
     }
 
     public Scene CreateStartScreen(Scene fightPane){

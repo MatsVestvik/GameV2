@@ -11,17 +11,21 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.geometry.Rectangle2D;
 
 public class FightScreen {
     VBox allElementsVBox;
+    private Stage stage;
 
-    public FightScreen() {
+    public FightScreen(Stage stage) {
+        this.stage = stage;
+        stage.setMaximized(true);
         allElementsVBox = new VBox();
     }
 
     public VBox getAllElementsVBox() {return allElementsVBox;}
     
-    public Scene createFightScene(Stage stage) {
+    public Scene createFightScene() {
         CreateHero heroCreator = new CreateHero();
         ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter();
 
@@ -55,11 +59,10 @@ public class FightScreen {
             statsView.updateStats(3);
         });
 
-        
-
         allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox());
+        stage.setMaximized(true);
 
-        Scene fightScene = new Scene(allElementsVBox);
+        Scene fightScene = new Scene(allElementsVBox, stage.getWidth(), stage.getHeight());
         return fightScene;
     }
 }

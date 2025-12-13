@@ -26,14 +26,14 @@ public class Main extends Application{
     @Override
     public void start(javafx.stage.Stage stage) {
 
-        FightScreen fightScreen = new FightScreen();
-        Scene fightScene = fightScreen.createFightScene(stage);
+        FightScreen fightScreen = new FightScreen(stage);
+        Scene fightScene = fightScreen.createFightScene();
         
         StartScreen startScreen = new StartScreen(stage);
         Scene startScene = startScreen.CreateStartScreen(fightScene);
 
         stage.setScene(startScene);
-        stage.setFullScreen(true);
+        stage.setMaximized(true);
         stage.setTitle("Game Fight Simulation");
 
         stage.show();
