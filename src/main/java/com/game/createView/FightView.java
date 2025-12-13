@@ -50,7 +50,7 @@ public class FightView {
         Timeline timeline = new Timeline();
         int damageDealt = attacker.getCharacter().getTotalDamage() - defender.getCharacter().getTotalArmor();
         defender.getCharacter().setHealth(defender.getCharacter().getHealth() - damageDealt);
-
+        
         KeyFrame duration = new KeyFrame(Duration.millis(150), e -> {
             attacker.attackAnimation();
         });

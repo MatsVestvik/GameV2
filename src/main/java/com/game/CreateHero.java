@@ -28,12 +28,12 @@ public class CreateHero {
         hero.equipItem(leggings);
         hero.equipItem(boots);
         ViewCharacter yourPlayerView = new ViewCharacter(true, avatar, hero);
-        yourPlayerView.addItemImageToPane(sword.getIcon(), sword.getRarity());
-        yourPlayerView.addItemImageToPane(helmet.getIcon(), helmet.getRarity());
-        yourPlayerView.addItemImageToPane(chestplate.getIcon(), chestplate.getRarity());
-        yourPlayerView.addItemImageToPane(leggings.getIcon(), leggings.getRarity());
-        yourPlayerView.addItemImageToPane(boots.getIcon(), boots.getRarity());
-        yourPlayerView.addItemImageToPane(shield.getIcon(), shield.getRarity());
+        yourPlayerView.addItemImageToPane(sword.getIcon(), sword.getRarity(), sword.getType());
+        yourPlayerView.addItemImageToPane(helmet.getIcon(), helmet.getRarity(), helmet.getType());
+        yourPlayerView.addItemImageToPane(chestplate.getIcon(), chestplate.getRarity(), chestplate.getType());
+        yourPlayerView.addItemImageToPane(leggings.getIcon(), leggings.getRarity(), leggings.getType());
+        yourPlayerView.addItemImageToPane(boots.getIcon(), boots.getRarity(), boots.getType());
+        yourPlayerView.addItemImageToPane(shield.getIcon(), shield.getRarity(), shield.getType());
         return yourPlayerView;
     }
 }

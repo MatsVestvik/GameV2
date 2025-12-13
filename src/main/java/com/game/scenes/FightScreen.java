@@ -30,25 +30,32 @@ public class FightScreen {
         FightView fightView = new FightView(yourPlayerView, enemyCreator.getEnemyView(0), enemyCreator.getEnemyView(1), enemyCreator.getEnemyView(2));
         StackPane fightPane = fightView.getFightPane();
 
-        enemyCreator.getEnemyView(0).getInvisibleButton().setOnAction(e -> {
-            System.out.println("Enemy 1 clicked");
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(0));
-        });
-
-        enemyCreator.getEnemyView(1).getInvisibleButton().setOnAction(e -> {
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(1));
-        });
-
-        enemyCreator.getEnemyView(2).getInvisibleButton().setOnAction(e -> {
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(2));
-        });
-
         StatsView statsView = new StatsView(
             yourPlayerView.getCharacter(),
             enemyCreator.getEnemyView(0).getCharacter(),
             enemyCreator.getEnemyView(1).getCharacter(),
             enemyCreator.getEnemyView(2).getCharacter()
         );
+
+        enemyCreator.getEnemyView(0).getInvisibleButton().setOnAction(e -> {
+            System.out.println("Enemy 1 clicked");
+            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(0));
+            statsView.updateStats(1);
+        });
+
+        enemyCreator.getEnemyView(1).getInvisibleButton().setOnAction(e -> {
+            System.out.println("Enemy 2 clicked");
+            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(1));
+            statsView.updateStats(2);
+        });
+
+        enemyCreator.getEnemyView(2).getInvisibleButton().setOnAction(e -> {
+            System.out.println("Enemy 3 clicked");
+            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(2));
+            statsView.updateStats(3);
+        });
+
+        
 
         allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox());
 

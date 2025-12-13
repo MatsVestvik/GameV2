@@ -14,6 +14,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.util.Duration; 
 
@@ -24,6 +25,7 @@ public class ViewCharacter {
     private Character character;
     private double width = Screen.getPrimary().getBounds().getWidth() / 4;
     Button invisibleButton;
+    private int layers;
 
 
     public ViewCharacter(boolean isPlayer, Image avatar, Character character) {
@@ -38,12 +40,21 @@ public class ViewCharacter {
         avatarView.setFitWidth(width);
         avatarView.setPreserveRatio(true);
 
+        Text armourLayer = new Text("armour");
+        armourLayer.setOpacity(0);
+        Text shieldLayer = new Text("shield");
+        shieldLayer.setOpacity(0);
+
         invisibleButton = new Button();
         invisibleButton.setMinWidth(width);
         invisibleButton.setMinHeight(width);
         invisibleButton.setOpacity(0);
 
-        charPane.getChildren().addAll(avatarView, invisibleButton);
+        charPane.getChildren().add(0, avatarView);
+        charPane.getChildren().add(1, armourLayer);
+        charPane.getChildren().add(2, shieldLayer);
+        charPane.getChildren().add(3, invisibleButton);
+        this.layers = 3;
         charPane.setAlignment(Pos.TOP_CENTER);
     }
 
@@ -55,19 +66,24 @@ public class ViewCharacter {
         ImageView imageView = new ImageView(img);
         imageView.setFitWidth(width);
         imageView.setPreserveRatio(true);
-        charPane.getChildren().add(imageView);
+        charPane.getChildren().add(1, imageView);
     }
 
     public void addImageViewToPane(ImageView imgView) {
-        charPane.getChildren().add(imgView);
+        charPane.getChildren().add(1, imgView);
     }
 
-    public void addItemImageToPane(Image img, int rarity) {
+    public void addItemImageToPane(Image img, int rarity, String itemType) {
         ImageView imageView = new ImageView(img);
         imageView.setFitWidth(width);
         imageView.setPreserveRatio(true);
         ImageView raredImg = RarityFilter.applyRarityTint(imageView, rarity);
-        charPane.getChildren().add(raredImg);
+        layers++;
+        if (itemType.equals("OFFHAND")) {
+            charPane.getChildren().add(layers-1, raredImg);
+            return;
+        }
+        charPane.getChildren().add(1, raredImg);
     }
 
     public void flipCharacterView() {
