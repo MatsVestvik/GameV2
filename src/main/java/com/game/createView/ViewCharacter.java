@@ -9,6 +9,7 @@ import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +23,7 @@ public class ViewCharacter {
     boolean isPlayer;
     private Character character;
     private double width = Screen.getPrimary().getBounds().getWidth() / 4;
+    Button invisibleButton;
 
 
     public ViewCharacter(boolean isPlayer, Image avatar, Character character) {
@@ -36,12 +38,18 @@ public class ViewCharacter {
         avatarView.setFitWidth(width);
         avatarView.setPreserveRatio(true);
 
-        charPane.getChildren().addAll(avatarView);
+        invisibleButton = new Button();
+        invisibleButton.setMinWidth(width);
+        invisibleButton.setMinHeight(width);
+        invisibleButton.setOpacity(0);
+
+        charPane.getChildren().addAll(avatarView, invisibleButton);
         charPane.setAlignment(Pos.TOP_CENTER);
     }
 
     public StackPane getCharPane() {return charPane;}
     public Character getCharacter() {return character;}
+    public Button getInvisibleButton() {return invisibleButton;}
 
     public void addImageToPane(Image img) {
         ImageView imageView = new ImageView(img);

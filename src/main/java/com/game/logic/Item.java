@@ -1,5 +1,7 @@
 package com.game.logic;
 
+import java.util.List;
+
 import javafx.scene.image.Image;
 
 public class Item {
@@ -40,5 +42,4 @@ public class Item {
             }
         }
     }
-    
 }

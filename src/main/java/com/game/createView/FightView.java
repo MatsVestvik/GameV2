@@ -26,16 +26,13 @@ public class FightView {
     private HBox fightHBox;
 
 
-    public FightView(ViewCharacter player, ViewCharacter npc) {
-        CharactersView charactersView = new CharactersView(player, npc);
+    public FightView(ViewCharacter player, ViewCharacter npc, ViewCharacter npc2, ViewCharacter npc3) {
+        CharactersView charactersView = new CharactersView(player, npc, npc2, npc3);
         BackgroundView backgroundView = new BackgroundView(4);
 
         fightPane = new StackPane();
-        //fightPane.setAlignment(Pos.CENTER);
 
-        
-
-        fightPane.getChildren().addAll(backgroundView.getBackgroundHBox(), fightHBox = charactersView.getCharactersHBox());
+        fightPane.getChildren().addAll(backgroundView.getBackgroundHBox(), charactersView.getCharactersHBox());
     }
 
     public HBox getFightHBox() {return fightHBox;}
@@ -60,6 +57,11 @@ public class FightView {
         KeyFrame duration2 = new KeyFrame(Duration.millis(150), e -> {
             defender.hurtAnimation();
         });
+
+        if (defender.getCharacter().getHealth() <= 0) {
+            defender.killCharacterView();
+        }
+
         timeline.getKeyFrames().addAll(duration, duration2);
         timeline.play();
     }
