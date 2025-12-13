@@ -10,7 +10,8 @@ import com.game.logic.Character;
 import com.game.logic.Fight;
 import com.game.logic.Item;
 import com.game.logic.MakeImage;
-import com.game.createView.FightView;
+import com.game.scenes.StartScreen;
+import com.game.scenes.FightScreen;
 
 import javafx.application.Application;
 import javafx.scene.control.Button;
@@ -18,35 +19,23 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.Scene;
 
 public class Main extends Application{
 
     @Override
     public void start(javafx.stage.Stage stage) {
 
-        CreateHero heroCreator = new CreateHero();
-        ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter();
+        FightScreen fightScreen = new FightScreen();
+        Scene fightScene = fightScreen.createFightScene(stage);
         
-        CreateEnemies enemyCreator = new CreateEnemies();
+        StartScreen startScreen = new StartScreen(stage);
+        Scene startScene = startScreen.CreateStartScreen(fightScene);
 
-        FightView fightView = new FightView(yourPlayerView, enemyCreator.getEnemyView(0), enemyCreator.getEnemyView(1), enemyCreator.getEnemyView(2));
-        StackPane fightPane = fightView.getFightPane();
-
-        enemyCreator.getEnemyView(0).getInvisibleButton().setOnAction(e -> {
-            System.out.println("Enemy 1 clicked");
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(0));
-        });
-
-        enemyCreator.getEnemyView(1).getInvisibleButton().setOnAction(e -> {
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(1));
-        });
-
-        enemyCreator.getEnemyView(2).getInvisibleButton().setOnAction(e -> {
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(2));
-        });
-
-        stage.setScene(new javafx.scene.Scene(fightPane, 400, 400));
+        stage.setScene(startScene);
+        stage.setMaximized(true);
         stage.setTitle("Game Fight Simulation");
+
         stage.show();
     }
 
