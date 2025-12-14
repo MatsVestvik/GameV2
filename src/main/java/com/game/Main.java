@@ -11,6 +11,7 @@ import com.game.logic.Fight;
 import com.game.logic.Item;
 import com.game.logic.MakeImage;
 import com.game.scenes.StartScreen;
+import com.game.scenes.EndScreen;
 import com.game.scenes.FightScreen;
 
 import javafx.application.Application;
@@ -26,11 +27,16 @@ public class Main extends Application{
     @Override
     public void start(javafx.stage.Stage stage) {
 
+        EndScreen endScreen = new EndScreen(stage);
+        Scene endScene = endScreen.CreateEndScreen();
+
         FightScreen fightScreen = new FightScreen(stage);
-        Scene fightScene = fightScreen.createFightScene();
+        Scene fightScene = fightScreen.createFightScene(endScene);
         
         StartScreen startScreen = new StartScreen(stage);
         Scene startScene = startScreen.CreateStartScreen(fightScene);
+
+        
 
         stage.setScene(startScene);
         stage.setMaximized(true);

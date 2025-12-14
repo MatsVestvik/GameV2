@@ -78,4 +78,14 @@ public class StatsView {
         // Add to VBox
         vbox.getChildren().addAll(nameText, healthText, armorText, damageText);
     }
+
+    public boolean areAllEnemiesDefeated() {
+        // Check if all enemies (characters at index 1, 2, 3) are defeated
+        for (int i = 1; i < characters.size(); i++) {
+            if (characters.get(i).getHealth() > 1) {
+                return false; // At least one enemy is still alive
+            }
+        }
+        return true; // All enemies are defeated
+    }
 }

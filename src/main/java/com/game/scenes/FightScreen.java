@@ -26,7 +26,7 @@ public class FightScreen {
 
     public VBox getAllElementsVBox() {return allElementsVBox;}
     
-    public Scene createFightScene() {
+    public Scene createFightScene(Scene endScene) {
         CreateHero heroCreator = new CreateHero();
         ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter();
 
@@ -46,19 +46,30 @@ public class FightScreen {
             System.out.println("Enemy 1 clicked");
             fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(0));
             statsView.updateStats(1);
+            if (statsView.areAllEnemiesDefeated()) {
+                stage.setScene(endScene);
+            }
         });
 
         enemyCreator.getEnemyView(1).getInvisibleButton().setOnAction(e -> {
             System.out.println("Enemy 2 clicked");
             fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(1));
             statsView.updateStats(2);
+            if (statsView.areAllEnemiesDefeated()) {
+                stage.setScene(endScene);
+            }
         });
 
         enemyCreator.getEnemyView(2).getInvisibleButton().setOnAction(e -> {
             System.out.println("Enemy 3 clicked");
             fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(2));
             statsView.updateStats(3);
+            if (statsView.areAllEnemiesDefeated()) {
+                stage.setScene(endScene);
+            }
         });
+
+        
 
         allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox());
         stage.setMaximized(true);
