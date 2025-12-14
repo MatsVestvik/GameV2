@@ -36,8 +36,6 @@ public class Main extends Application{
         StartScreen startScreen = new StartScreen(stage);
         Scene startScene = startScreen.CreateStartScreen(fightScene);
 
-        
-
         stage.setScene(startScene);
         stage.setMaximized(true);
         stage.setTitle("Game Fight Simulation");

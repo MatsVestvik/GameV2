@@ -31,7 +31,10 @@ public class FightScreen {
     
     public Scene createFightScene(Scene endScene) {
         CreateHero heroCreator = new CreateHero();
-        ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter();
+        EquippedGrid equippedGrid = new EquippedGrid(4,2, 100);
+        InventoryGrid inventoryGrid = new InventoryGrid(5,13, 75);
+        
+        ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter(inventoryGrid, equippedGrid);
 
         CreateEnemies enemyCreator = new CreateEnemies();
 
@@ -72,9 +75,7 @@ public class FightScreen {
             }
         });
 
-        EquippedGrid equippedGrid = new EquippedGrid(4,2, 100);
-
-        InventoryGrid inventoryGrid = new InventoryGrid(5,13, 75);
+        
 
 
         HBox inventoryHBox = new HBox();

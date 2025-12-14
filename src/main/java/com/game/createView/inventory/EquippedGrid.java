@@ -50,13 +50,12 @@ public class EquippedGrid {
     }
     
     // Add an item to a specific slot
-    public boolean addItemToSlot(int slotIndex, Item armour) {
+    public boolean addItemToSlot(Item item) {
+        int slotIndex = indexOfType(item);
         if (slotIndex < 0 || slotIndex >= slots.size()) {
-            
-            System.out.println("EquippedGrid: Invalid slot index " + slotIndex);
             return false;
         }
-        return slots.get(slotIndex).setItem(armour);
+        return slots.get(slotIndex).setItem(item);
     }
     
     // Add item to first available slot
@@ -115,5 +114,17 @@ public class EquippedGrid {
     // Interface for slot click events
     public interface SlotClickListener {
         void onSlotClicked(int slotIndex, Object itemData);
+    }
+
+    public int indexOfType(Item item) {
+        switch (item.getType()) {
+            case "HELMET" : return 0;
+            case "CHESTPLATE" : return 2;
+            case "LEGGINGS" : return 4;
+            case "BOOTS" : return 6;
+            case "WEAPON" : return 3;
+            case "OFFHAND" : return 5;
+            default: return -1;
+        }
     }
 }
