@@ -49,6 +49,9 @@ public class FightView {
     public void attackAndHurtAnimation(ViewCharacter attacker, ViewCharacter defender) {
         Timeline timeline = new Timeline();
         int damageDealt = attacker.getCharacter().getTotalDamage() - defender.getCharacter().getTotalArmor();
+        if (damageDealt < 0) {
+            damageDealt = 0;
+        }
         defender.getCharacter().setHealth(defender.getCharacter().getHealth() - damageDealt);
         
         KeyFrame duration = new KeyFrame(Duration.millis(150), e -> {

@@ -80,16 +80,29 @@ public class FightScreen {
             equippedGrid.removeItemFromSlot(slotIndex);
             inventoryGrid.addItemToFirstAvailable((Item) itemData);
             heroCreator.getHero().unequipItem((Item) itemData);
-            heroCreator.getHeroView().removeImageFromPane(null);
+            heroCreator.getHeroView().removeImageFromPane(((Item) itemData).getType());
             statsView.updateStats(0);
         });
         inventoryGrid.setOnSlotClicked((slotIndex, itemData) -> {
             System.out.println("equipping slot: " + slotIndex);
             inventoryGrid.removeItemFromSlot(slotIndex);
-            equippedGrid.addItemToSlot((Item) itemData);
-            heroCreator.getHero().equipItem((Item) itemData);
-            heroCreator.getHeroView().addItemImageToPane(((Item) itemData).getIcon(), ((Item) itemData).getRarity(), ((Item) itemData).getType());
-            statsView.updateStats(0);
+            if (equippedGrid.isSlotEmpty(equippedGrid.indexOfType((Item) itemData))) {
+                equippedGrid.addItemToSlot((Item) itemData);
+                heroCreator.getHero().equipItem((Item) itemData);
+                heroCreator.getHeroView().addItemImageToPane(((Item) itemData).getIcon(), ((Item) itemData).getRarity(), ((Item) itemData).getType());
+                statsView.updateStats(0);
+            }
+            else {
+                inventoryGrid.addItemToFirstAvailable(equippedGrid.getItemFromSlot(equippedGrid.indexOfType((Item) itemData)));
+                equippedGrid.removeItemFromSlot(equippedGrid.indexOfType((Item) itemData));
+                equippedGrid.addItemToSlot((Item) itemData);
+                heroCreator.getHero().unequipItem(equippedGrid.getItemFromSlot(equippedGrid.indexOfType((Item) itemData)));
+                heroCreator.getHero().equipItem((Item) itemData);  
+                heroCreator.getHeroView().removeImageFromPane(((Item) itemData).getType());
+                heroCreator.getHeroView().addItemImageToPane(((Item) itemData).getIcon(), ((Item) itemData).getRarity(), ((Item) itemData).getType());
+                statsView.updateStats(0);
+            }
+            
         });
         
 

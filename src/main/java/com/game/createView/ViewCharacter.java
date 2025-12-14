@@ -1,6 +1,10 @@
 package com.game.createView;
 
 import com.game.logic.MakeImage;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.game.logic.Character;
 
 import javafx.animation.KeyFrame;
@@ -78,6 +82,10 @@ public class ViewCharacter {
         imageView.setFitWidth(width);
         imageView.setPreserveRatio(true);
         ImageView raredImg = RarityFilter.applyRarityTint(imageView, rarity);
+        
+        // Store item type as user data for easy removal
+        raredImg.setUserData(itemType);
+        
         layers++;
         if (itemType.equals("OFFHAND")) {
             charPane.getChildren().add(layers-1, raredImg);
@@ -90,16 +98,28 @@ public class ViewCharacter {
         charPane.setScaleX(-1);
     }
 
-    public void removeImageFromPane(Image img) {
-        for (var node : charPane.getChildren()) {
+    public boolean removeImageFromPane(String itemType) {
+        if (itemType == null || charPane == null) {
+            return false;
+        }
+        
+        // Find and remove ImageView with matching itemType in userData
+        for (int i = charPane.getChildren().size() - 1; i >= 0; i--) {
+            javafx.scene.Node node = charPane.getChildren().get(i);
+            
             if (node instanceof ImageView) {
-                ImageView iv = (ImageView) node;
-                if (iv.getImage().equals(img)) {
-                    charPane.getChildren().remove(iv);
-                    break;
+                ImageView imageView = (ImageView) node;
+                Object userData = imageView.getUserData();
+                
+                if (userData != null && userData.equals(itemType)) {
+                    charPane.getChildren().remove(i);
+                    layers--; // Decrement layers count
+                    return true;
                 }
             }
         }
+        
+        return false;
     }
 
     public void killCharacterView() {
