@@ -5,8 +5,11 @@ import com.game.CreateHero;
 import com.game.createView.FightView;
 import com.game.createView.StatsView;
 import com.game.createView.ViewCharacter;
+import com.game.createView.inventory.EquippedGrid;
+import com.game.createView.inventory.InventoryGrid;
 
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -69,9 +72,16 @@ public class FightScreen {
             }
         });
 
+        EquippedGrid equippedGrid = new EquippedGrid(4,2, 100);
+
+        InventoryGrid inventoryGrid = new InventoryGrid(5,13, 75);
+
+
+        HBox inventoryHBox = new HBox();
+        inventoryHBox.getChildren().addAll(equippedGrid.getGrid(), inventoryGrid.getGrid());
         
 
-        allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox());
+        allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox(), inventoryHBox);
         stage.setMaximized(true);
 
         Scene fightScene = new Scene(allElementsVBox, stage.getWidth(), Screen.getPrimary().getBounds().getHeight());
