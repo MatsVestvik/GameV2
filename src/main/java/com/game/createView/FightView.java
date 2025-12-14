@@ -106,4 +106,19 @@ public class FightView {
         delay.setOnFinished(e -> timeline.play());
         delay.play();
     }
+
+    public void attackAndReact(ViewCharacter attacker, ViewCharacter defender){
+        Timeline timeline = new Timeline();
+        
+        KeyFrame attackFrame = new KeyFrame(Duration.millis(300), e -> {
+            attackAndHurtAnimation(attacker, defender);
+        });
+        
+        KeyFrame hurtFrame = new KeyFrame(Duration.millis(300), e -> {
+            attackAndHurtAnimation(defender, attacker);
+        });
+        
+        timeline.getKeyFrames().addAll(attackFrame, hurtFrame);
+        timeline.play();
+    }
 }
