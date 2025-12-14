@@ -136,7 +136,7 @@ class EquippedSlot {
             this.item = armour;  // Store the Armour object
             this.isEmpty = false;
             
-            background.setFill(Color.rgb(44, 62, 80));
+            background.setFill(Color.rgb(117, 117, 117));
             return true;
         } catch (Exception e) {
             System.out.println("Failed to load image: " + imagePath);
@@ -155,7 +155,7 @@ class EquippedSlot {
         this.item = null;  // Clear the Armour object
         isEmpty = true;
         
-        background.setFill(Color.rgb(52, 73, 94));
+        background.setFill(Color.rgb(117, 117, 117));
         return true;
     }
 }
