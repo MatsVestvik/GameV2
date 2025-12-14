@@ -7,6 +7,7 @@ import com.game.createView.StatsView;
 import com.game.createView.ViewCharacter;
 import com.game.createView.inventory.EquippedGrid;
 import com.game.createView.inventory.InventoryGrid;
+import com.game.logic.Item;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -33,7 +34,7 @@ public class FightScreen {
         CreateHero heroCreator = new CreateHero();
         EquippedGrid equippedGrid = new EquippedGrid(4,2, 100);
         InventoryGrid inventoryGrid = new InventoryGrid(5,13, 75);
-        
+
         ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter(inventoryGrid, equippedGrid);
 
         CreateEnemies enemyCreator = new CreateEnemies();
@@ -74,7 +75,22 @@ public class FightScreen {
                 stage.setScene(endScene);
             }
         });
-
+        equippedGrid.setOnSlotClicked((slotIndex, itemData) -> {
+            System.out.println("unequipping slot: " + slotIndex);
+            equippedGrid.removeItemFromSlot(slotIndex);
+            inventoryGrid.addItemToFirstAvailable((Item) itemData);
+            heroCreator.getHero().unequipItem((Item) itemData);
+            heroCreator.getHeroView().removeImageFromPane(null);
+            statsView.updateStats(0);
+        });
+        inventoryGrid.setOnSlotClicked((slotIndex, itemData) -> {
+            System.out.println("equipping slot: " + slotIndex);
+            inventoryGrid.removeItemFromSlot(slotIndex);
+            equippedGrid.addItemToSlot((Item) itemData);
+            heroCreator.getHero().equipItem((Item) itemData);
+            heroCreator.getHeroView().addItemImageToPane(((Item) itemData).getIcon(), ((Item) itemData).getRarity(), ((Item) itemData).getType());
+            statsView.updateStats(0);
+        });
         
 
 

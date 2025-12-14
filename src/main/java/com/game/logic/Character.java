@@ -82,6 +82,29 @@ public class Character {
         }
     }
 
+    public void unequipItem(Item item) {
+        switch (item.getType()) {
+            case "HELMET":
+                this.helmet = null;
+                break;
+            case "CHESTPLATE":
+                this.chestplate = null;
+                break;
+            case "LEGGINGS":
+                this.leggings = null;
+                break;
+            case "BOOTS":
+                this.boots = null;
+                break;
+            case "WEAPON":
+                this.weapon = null;
+                break;
+            case "OFFHAND":
+                this.offhand = null;
+                break;
+        }
+    }
+
     public boolean isAlive() {
         return this.health > 0;
     }

@@ -23,10 +23,10 @@ public class CreateHero {
         this.inventoryGrid = inventoryGrid;
         this.equippedGrid = equippedGrid;
         Image avatar = MakeImage.createImage("img/basic/character/Basic_Character.gif");
-        hero = new Character("Hero", 100, 100, avatar);
+        hero = new Character("Hero", 100, 10, avatar);
         heroView = new ViewCharacter(true, avatar, hero);
         int rarity = 4;
-        Item sword = new Item("Basic Item", 0*rarity, 15*rarity, "WEAPON", MakeImage.createImage("img/basic/weapon/Basic_Sword.gif"), rarity);
+        Item sword = new Item("Basic Item", 0*rarity, 10*rarity, "WEAPON", MakeImage.createImage("img/basic/weapon/Basic_Sword.gif"), rarity);
         Item shield = new Item("Basic Item", 5*rarity, 0*rarity, "OFFHAND", MakeImage.createImage("img/basic/weapon/Basic_Shield.gif"), rarity);
         Item helmet = new Item("Basic Item", 5*rarity, 0*rarity, "HELMET", MakeImage.createImage("img/basic/armor/Basic_Helmet_2.gif"), rarity);
         Item chestplate = new Item("Basic Item", 8*rarity, 0*rarity, "CHESTPLATE", MakeImage.createImage("img/basic/armor/Basic_Chestplate.gif"), rarity);
@@ -40,6 +40,9 @@ public class CreateHero {
         equipItemToCharacter(boots);
         return heroView;
     }
+
+    public Character getHero() {return hero;}  
+    public ViewCharacter getHeroView() {return heroView;}
 
     private void equipItemToCharacter(Item item) {
         equippedGrid.addItemToSlot(item);
