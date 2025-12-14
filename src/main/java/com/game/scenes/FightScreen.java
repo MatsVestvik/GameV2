@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 
@@ -62,7 +63,7 @@ public class FightScreen {
         allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox());
         stage.setMaximized(true);
 
-        Scene fightScene = new Scene(allElementsVBox, stage.getWidth(), stage.getHeight());
+        Scene fightScene = new Scene(allElementsVBox, stage.getWidth(), Screen.getPrimary().getBounds().getHeight());
         return fightScene;
     }
 }
