@@ -5,6 +5,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.Node;
+import javafx.scene.control.ProgressBar;
+
 import com.game.logic.Character;
 
 public class StatsView {
@@ -72,11 +74,35 @@ public class StatsView {
         // Create updated text elements
         Text nameText = new Text("Name: " + character.getName());
         Text healthText = new Text("Health: " + health);
+        ProgressBar healthBar = createHealthBar(health);
+        updateHealthBar(healthBar, health);
         Text armorText = new Text("Armor: " + armor);
         Text damageText = new Text("Damage: " + damage);
         
         // Add to VBox
-        vbox.getChildren().addAll(nameText, healthText, armorText, damageText);
+        vbox.getChildren().addAll(nameText, healthText, healthBar, armorText, damageText);
+    }
+
+    private ProgressBar createHealthBar(int health) {
+        ProgressBar healthBar = new ProgressBar();
+        healthBar.setStyle("-fx-accent: green;");
+        healthBar.setProgress(health / 100.0);
+        return healthBar;
+    }
+
+    private void updateHealthBar(ProgressBar healthBar, int health) {
+        if (health < 20) {
+            healthBar.setStyle("-fx-accent: red;");
+            healthBar.setProgress(health / 100.0);
+        }
+        else if (health < 50) {
+            healthBar.setStyle("-fx-accent: orange;");
+            healthBar.setProgress(health / 100.0);
+        }
+        else if (health < 90) {
+            healthBar.setStyle("-fx-accent: lightgreen;");
+            healthBar.setProgress(health / 100.0);
+        }
     }
 
     public boolean areAllEnemiesDefeated() {
