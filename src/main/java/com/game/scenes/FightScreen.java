@@ -21,19 +21,21 @@ import javafx.geometry.Rectangle2D;
 public class FightScreen {
     VBox allElementsVBox;
     private Stage stage;
+    private double screenWidth;
 
     public FightScreen(Stage stage) {
         this.stage = stage;
         stage.setMaximized(true);
         allElementsVBox = new VBox();
+        screenWidth = Screen.getPrimary().getBounds().getWidth();
     }
 
     public VBox getAllElementsVBox() {return allElementsVBox;}
     
     public Scene createFightScene(Scene endScene) {
         CreateHero heroCreator = new CreateHero();
-        EquippedGrid equippedGrid = new EquippedGrid(4,2, 100);
-        InventoryGrid inventoryGrid = new InventoryGrid(4,12, 100);
+        EquippedGrid equippedGrid = new EquippedGrid(4,2, (int) (screenWidth / 16.2));
+        InventoryGrid inventoryGrid = new InventoryGrid(4,12, (int) (screenWidth / 16.2));
 
         ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter(inventoryGrid, equippedGrid);
 

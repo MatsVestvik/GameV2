@@ -35,7 +35,7 @@ public class CreateEnemies {
     public List<ViewCharacter> getEnemyCharacters() {return enemyCharacters;}
 
     public void createEnemyCharacter(Item sword, Item shield, Item helmet, Item chestplate, Item leggings, Item boots) {
-        Image villainAvatar = MakeImage.createImage("img/ninja/Ninja_Character.gif");
+        Image villainAvatar = MakeImage.createImage("img/ninja/Orc.gif");
         Character villain = new Character("Villain", 100, 10, villainAvatar);
         villain.equipItem(sword);
         villain.equipItem(shield);
