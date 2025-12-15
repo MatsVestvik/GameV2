@@ -26,20 +26,6 @@ public class CreateHero {
         Image avatar = MakeImage.createImage("img/basic/character/Basic_Character.gif");
         hero = new Character("Hero", 100, 50, avatar);
         heroView = new ViewCharacter(true, avatar, hero);
-        int rarity = 4;
-        CreateItems itemCreator = new CreateItems();
-        Item sword = itemCreator.makeSword(rarity);
-        Item shield = itemCreator.makeShield(rarity);
-        Item helmet = itemCreator.makeHelmet(rarity);
-        Item chestplate = itemCreator.makeChestplate(rarity);
-        Item leggings = itemCreator.makeLeggings(rarity);
-        Item boots = itemCreator.makeBoots(rarity);
-        equipItemToCharacter(sword);
-        equipItemToCharacter(shield);
-        equipItemToCharacter(helmet);
-        equipItemToCharacter(chestplate);
-        equipItemToCharacter(leggings);
-        equipItemToCharacter(boots);
         createAllItems();
         return heroView;
     }

@@ -72,21 +72,24 @@ public class StatsView {
         int health = character.getHealth();
         
         // Create updated text elements
-        Text nameText = new Text("Name: " + character.getName());
-        Text healthText = new Text("Health: " + health);
         ProgressBar healthBar = createHealthBar(health);
         updateHealthBar(healthBar, health);
+        Text healthText = new Text("Health: " + health);
+        healthText.setStyle("-fx-font-size: 14; -fx-fill: green;");
         Text armorText = new Text("Armor: " + armor);
+        armorText.setStyle("-fx-font-size: 14; -fx-fill: blue;");
         Text damageText = new Text("Damage: " + damage);
+        damageText.setStyle("-fx-font-size: 14; -fx-fill: red;");
         
         // Add to VBox
-        vbox.getChildren().addAll(nameText, healthText, healthBar, armorText, damageText);
+        vbox.getChildren().addAll(healthBar, healthText, armorText, damageText);
     }
 
     private ProgressBar createHealthBar(int health) {
         ProgressBar healthBar = new ProgressBar();
         healthBar.setStyle("-fx-accent: green;");
         healthBar.setProgress(health / 100.0);
+        healthBar.setPrefWidth(width - 20);
         return healthBar;
     }
 
@@ -97,6 +100,10 @@ public class StatsView {
         }
         else if (health < 50) {
             healthBar.setStyle("-fx-accent: orange;");
+            healthBar.setProgress(health / 100.0);
+        }
+        else if (health < 70) {
+            healthBar.setStyle("-fx-accent: yellow;");
             healthBar.setProgress(health / 100.0);
         }
         else if (health < 90) {

@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
 
 public class FightScreen {
     VBox allElementsVBox;
@@ -114,6 +115,7 @@ public class FightScreen {
         
 
         allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox(), inventoryHBox);
+        allElementsVBox.setStyle("-fx-background-color: #363434;");
         stage.setMaximized(true);
 
         Scene fightScene = new Scene(allElementsVBox, stage.getWidth(), Screen.getPrimary().getBounds().getHeight());
