@@ -33,7 +33,7 @@ public class FightScreen {
     public Scene createFightScene(Scene endScene) {
         CreateHero heroCreator = new CreateHero();
         EquippedGrid equippedGrid = new EquippedGrid(4,2, 100);
-        InventoryGrid inventoryGrid = new InventoryGrid(5,13, 75);
+        InventoryGrid inventoryGrid = new InventoryGrid(4,12, 100);
 
         ViewCharacter yourPlayerView = heroCreator.CreateMainCharacter(inventoryGrid, equippedGrid);
 
@@ -89,7 +89,7 @@ public class FightScreen {
             if (equippedGrid.isSlotEmpty(equippedGrid.indexOfType((Item) itemData))) {
                 equippedGrid.addItemToSlot((Item) itemData);
                 heroCreator.getHero().equipItem((Item) itemData);
-                heroCreator.getHeroView().addItemImageToPane(((Item) itemData).getIcon(), ((Item) itemData).getRarity(), ((Item) itemData).getType());
+                heroCreator.getHeroView().addItemImageToPane(((Item) itemData).getSprite(), ((Item) itemData).getRarity(), ((Item) itemData).getType());
                 statsView.updateStats(0);
             }
             else {
@@ -99,7 +99,7 @@ public class FightScreen {
                 heroCreator.getHero().unequipItem(equippedGrid.getItemFromSlot(equippedGrid.indexOfType((Item) itemData)));
                 heroCreator.getHero().equipItem((Item) itemData);  
                 heroCreator.getHeroView().removeImageFromPane(((Item) itemData).getType());
-                heroCreator.getHeroView().addItemImageToPane(((Item) itemData).getIcon(), ((Item) itemData).getRarity(), ((Item) itemData).getType());
+                heroCreator.getHeroView().addItemImageToPane(((Item) itemData).getSprite(), ((Item) itemData).getRarity(), ((Item) itemData).getType());
                 statsView.updateStats(0);
             }
             

@@ -12,14 +12,16 @@ public class Item {
     private String type;
     private Image icon;
     private int rarity;
+    private Image sprite;
 
-    public Item(String name, int armor, int damage, String type, Image icon, int rarity) {
+    public Item(String name, int armor, int damage, String type, Image icon, int rarity, Image sprite) {
         this.name = name;
         this.armor = armor;
         this.damage = damage;
         setType(type);
         this.icon = icon;
         this.rarity = rarity;
+        this.sprite = sprite;
     }
 
     public String getName() {return name;}
@@ -28,6 +30,7 @@ public class Item {
     public int getDamage() {return damage;}
     public Image getIcon() {return icon;}
     public int getRarity() {return rarity;}
+    public Image getSprite() {return sprite;}
 
     public void setName(String name) {this.name = name;}
     public void setArmor(int armor) {this.armor = armor;}

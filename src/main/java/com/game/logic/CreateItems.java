@@ -17,33 +17,34 @@ public class CreateItems {
     public List<Item> getItems() {return items;}
 
     public Item makeHelmet(int rarity) {
-        Image helmetImage = MakeImage.createImage("img/basic/armor/Basic_Helmet_2.gif");
-        return new Item("Basic Item", 5*rarity, 0, "HELMET", helmetImage, rarity);
+        Image helmetSprite = MakeImage.createImage("img/basic/armor/Basic_Helmet_2.gif");
+        Image helmetIcon = MakeImage.createImage("img/png/armour/Helmet_Icon.png");
+        return new Item("Basic Item", 5*rarity, 0, "HELMET", helmetIcon, rarity, helmetSprite);
     }
 
     public Item makeChestplate(int rarity) {
-        Image chestplateImage = MakeImage.createImage("img/basic/armor/Basic_Chestplate.gif");
-        return new Item("Basic Item", 8*rarity, 0, "CHESTPLATE", chestplateImage, rarity);
+        Image chestplateSprite = MakeImage.createImage("img/basic/armor/Basic_Chestplate.gif");
+        return new Item("Basic Item", 8*rarity, 0, "CHESTPLATE", chestplateSprite, rarity, chestplateSprite);
     }
 
     public Item makeLeggings(int rarity) {
-        Image leggingsImage = MakeImage.createImage("img/basic/armor/Basic_pants.gif");
-        return new Item("Basic Item", 7*rarity, 0, "LEGGINGS", leggingsImage, rarity);
+        Image leggingsSprite = MakeImage.createImage("img/basic/armor/Basic_pants.gif");
+        return new Item("Basic Item", 7*rarity, 0, "LEGGINGS", leggingsSprite, rarity, leggingsSprite);
     }
 
     public Item makeBoots(int rarity) {
-        Image bootsImage = MakeImage.createImage("img/basic/armor/Basic_Shoes.gif");
-        return new Item("Basic Item", 4*rarity, 0, "BOOTS", bootsImage, rarity);
+        Image bootsSprite = MakeImage.createImage("img/basic/armor/Basic_Shoes.gif");
+        return new Item("Basic Item", 4*rarity, 0, "BOOTS", bootsSprite, rarity, bootsSprite);
     }
 
     public Item makeSword(int rarity) {
-        Image swordImage = MakeImage.createImage("img/basic/weapon/Basic_Sword.gif");
-        return new Item("Basic Item", 0, 15*rarity, "WEAPON", swordImage, rarity);
+        Image swordSprite = MakeImage.createImage("img/basic/weapon/Basic_Sword.gif");
+        return new Item("Basic Item", 0, 15*rarity, "WEAPON", swordSprite, rarity, swordSprite);
     }
 
     public Item makeShield(int rarity) {
-        Image shieldImage = MakeImage.createImage("img/basic/weapon/Basic_Shield.gif");
-        return new Item("Basic Item", 5*rarity, 0, "OFFHAND", shieldImage, rarity);
+        Image shieldSprite = MakeImage.createImage("img/basic/weapon/Basic_Shield.gif");
+        return new Item("Basic Item", 5*rarity, 0, "OFFHAND", shieldSprite, rarity, shieldSprite);
     }
 
     public void createEquipmentSet(int rarity) {

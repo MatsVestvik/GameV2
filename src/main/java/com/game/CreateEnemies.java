@@ -44,12 +44,12 @@ public class CreateEnemies {
         villain.equipItem(leggings);
         villain.equipItem(boots);
         ViewCharacter enemyView = new ViewCharacter(false, villainAvatar, villain);
-        enemyView.addItemImageToPane(sword.getIcon(), sword.getRarity(), sword.getType());
-        enemyView.addItemImageToPane(shield.getIcon(), shield.getRarity(), shield.getType());
-        enemyView.addItemImageToPane(helmet.getIcon(), helmet.getRarity(), helmet.getType());
-        enemyView.addItemImageToPane(chestplate.getIcon(), chestplate.getRarity(), chestplate.getType());
-        enemyView.addItemImageToPane(leggings.getIcon(), leggings.getRarity(), leggings.getType());
-        enemyView.addItemImageToPane(boots.getIcon(), boots.getRarity(), boots.getType());
+        enemyView.addItemImageToPane(sword.getSprite(), sword.getRarity(), sword.getType());
+        enemyView.addItemImageToPane(shield.getSprite(), shield.getRarity(), shield.getType());
+        enemyView.addItemImageToPane(helmet.getSprite(), helmet.getRarity(), helmet.getType());
+        enemyView.addItemImageToPane(chestplate.getSprite(), chestplate.getRarity(), chestplate.getType());
+        enemyView.addItemImageToPane(leggings.getSprite(), leggings.getRarity(), leggings.getType());
+        enemyView.addItemImageToPane(boots.getSprite(), boots.getRarity(), boots.getType());
         enemyCharacters.add(enemyView);
     }
 
