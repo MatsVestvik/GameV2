@@ -134,16 +134,10 @@ public class ViewCharacter {
     public void attackAnimation() {
         Timeline timeline = new Timeline();
         boolean isPlayer = this.isPlayer;
-        int direction;
-        if (isPlayer) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
         
         // KeyFrame 1: Move to attack position
         KeyValue kv1 = new KeyValue(charPane.translateXProperty(), 
-                                    isPlayer ? 170*direction : -170*direction);
+                                    isPlayer ? 170 : -170);
         KeyFrame kf1 = new KeyFrame(Duration.millis(150), kv1);
         
         // KeyFrame 2: Return to original position
