@@ -112,22 +112,27 @@ public class FightView {
 
     public void attackAndReact(ViewCharacter attacker, ViewCharacter defender, StatsView statsView) {
         Timeline timeline = new Timeline();
-        
+        int damageDealt = attacker.getCharacter().getTotalDamage() - defender.getCharacter().getTotalArmor();
         KeyFrame attackFrame = new KeyFrame(Duration.millis(0), e -> {
             attackAndHurtAnimation(attacker, defender);
-            System.out.println(attacker.getCharacter().getTotalDamage() +"-"+ defender.getCharacter().getTotalArmor()+ "="+ defender.getCharacter().getHealth());
-            statsView.updateStats(1);
-            statsView.updateStats(0);
+            statsView.updateAllStats();
         });
-        
-        KeyFrame hurtFrame = new KeyFrame(Duration.millis(500), e -> {
-            attackAndHurtAnimation(defender, attacker);
-            System.out.println(defender.getCharacter().getTotalDamage() +"-"+ attacker.getCharacter().getTotalArmor()+ "="+ attacker.getCharacter().getHealth());
-            statsView.updateStats(2);
-            statsView.updateStats(0);
-        });
-        
-        timeline.getKeyFrames().addAll(attackFrame, hurtFrame);
+        timeline.getKeyFrames().add(attackFrame);
+        statsView.updateAllStats();
+        if (defender.getCharacter().getHealth() - damageDealt <= 0) {
+            KeyFrame reactFrame = new KeyFrame(Duration.millis(500), ev -> {
+            });
+            timeline.getKeyFrames().add(reactFrame);
+            statsView.updateAllStats();
+        }
+        else {
+            KeyFrame reactFrame = new KeyFrame(Duration.millis(500), e -> {
+                attackAndHurtAnimation(defender, attacker);
+            });
+            timeline.getKeyFrames().add(reactFrame);
+            statsView.updateAllStats();
+        }
+
         timeline.play();
     }
 }

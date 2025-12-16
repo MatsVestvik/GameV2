@@ -106,10 +106,6 @@ public class StatsView {
             healthBar.setStyle("-fx-accent: yellow;");
             healthBar.setProgress(health / 100.0);
         }
-        else if (health < 90) {
-            healthBar.setStyle("-fx-accent: lightgreen;");
-            healthBar.setProgress(health / 100.0);
-        }
     }
 
     public boolean areAllEnemiesDefeated() {
