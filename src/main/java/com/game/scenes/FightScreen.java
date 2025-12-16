@@ -26,7 +26,6 @@ public class FightScreen {
 
     public FightScreen(Stage stage) {
         this.stage = stage;
-        stage.setMaximized(true);
         allElementsVBox = new VBox();
         screenWidth = Screen.getPrimary().getBounds().getWidth();
     }
@@ -34,6 +33,7 @@ public class FightScreen {
     public VBox getAllElementsVBox() {return allElementsVBox;}
     
     public Scene createFightScene(Scene endScene) {
+        stage.setMaximized(true);
         CreateHero heroCreator = new CreateHero();
         EquippedGrid equippedGrid = new EquippedGrid(4,2, (int) (screenWidth / 16.2));
         InventoryGrid inventoryGrid = new InventoryGrid(4,12, (int) (screenWidth / 16.2));
@@ -54,8 +54,7 @@ public class FightScreen {
 
         enemyCreator.getEnemyView(0).getInvisibleButton().setOnAction(e -> {
             System.out.println("Enemy 1 clicked");
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(0));
-            statsView.updateStats(1);
+            fightView.attackAndReact(yourPlayerView, enemyCreator.getEnemyView(0), statsView);
             if (statsView.areAllEnemiesDefeated()) {
                 stage.setScene(endScene);
             }
@@ -63,8 +62,7 @@ public class FightScreen {
 
         enemyCreator.getEnemyView(1).getInvisibleButton().setOnAction(e -> {
             System.out.println("Enemy 2 clicked");
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(1));
-            statsView.updateStats(2);
+            fightView.attackAndReact(yourPlayerView, enemyCreator.getEnemyView(1), statsView);
             if (statsView.areAllEnemiesDefeated()) {
                 stage.setScene(endScene);
             }
@@ -72,8 +70,7 @@ public class FightScreen {
 
         enemyCreator.getEnemyView(2).getInvisibleButton().setOnAction(e -> {
             System.out.println("Enemy 3 clicked");
-            fightView.attackAndHurtAnimation(yourPlayerView, enemyCreator.getEnemyView(2));
-            statsView.updateStats(3);
+            fightView.attackAndReact(yourPlayerView, enemyCreator.getEnemyView(2), statsView);
             if (statsView.areAllEnemiesDefeated()) {
                 stage.setScene(endScene);
             }
@@ -116,7 +113,6 @@ public class FightScreen {
 
         allElementsVBox.getChildren().addAll(fightPane, statsView.getStatsHBox(), inventoryHBox);
         allElementsVBox.setStyle("-fx-background-color: #363434;");
-        stage.setMaximized(true);
 
         Scene fightScene = new Scene(allElementsVBox, stage.getWidth(), Screen.getPrimary().getBounds().getHeight());
         return fightScene;
